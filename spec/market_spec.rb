@@ -29,7 +29,7 @@ RSpec.describe Market do
 
   describe '#vendors' do
     it 'starts out with an empty array for vendors' do
-      expect(@market.vendors).to eq ([])
+      expect(@market.vendors).to eq([])
     end
 
     it 'adds vendors' do
@@ -65,10 +65,50 @@ RSpec.describe Market do
       @market.add_vendor(@vendor1)
       @market.add_vendor(@vendor2)
       @market.add_vendor(@vendor3)
-      
+
       expect(@vendor1.potential_revenue).to eq(29.75)
       expect(@vendor2.potential_revenue).to eq(345.00)
       expect(@vendor3.potential_revenue).to eq(48.75)
+    end
+  end
+
+  describe '#sorted item list' do
+    it 'can add names of items the Vendors have in stock into an array' do
+      @market.add_vendor(@vendor1)
+      @market.add_vendor(@vendor2)
+      @market.add_vendor(@vendor3)
+
+      expect(@market.sorted_item_list).to be_an(Array)
+      expect(@market.sorted_item_list).to eq(["Banana Nice Cream", 'Peach', "Peach-Raspberry Nice Cream", 'Tomato'])
+    end
+  end
+
+  describe '#total inventory' do
+   it 'can report the quantities of all items sold at the market' do
+      @market.add_vendor(@vendor1)
+      @market.add_vendor(@vendor2)
+      @market.add_vendor(@vendor3)
+
+      expected = {
+        @item1 => { quantity: 100, vendors: [@vendor1, @vendor3] },
+        @item2 => { quantity: 7, vendors: [@vendor1] },
+        @item3 => { quantity: 25, vendors: [@vendor2] },
+        @item4 => { quantity: 50, vendors: [@vendor2] }
+      }
+
+      expect(@market.total_inventory).to be_a(Hash)
+      expect(@market.total_inventory).to eq(expected)
+    end
+  end
+
+  describe '#overstocked items' do
+    it 'can return an array of items that are sold by multiple vendors and have a quantity > 50' do
+      @market.add_vendor(@vendor1)
+      @market.add_vendor(@vendor2)
+      @market.add_vendor(@vendor3)
+
+      expect(@market.overstocked_items).to be_an(Array)
+      expect(@market.overstocked_items).to eq([@item1])
     end
   end
 end
