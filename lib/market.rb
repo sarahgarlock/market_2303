@@ -34,8 +34,13 @@ class Market
   end
 
   def total_inventory
-    inventory = {}
-    
-
+    inventory = Hash.new { |h, k| h[k] = { quantity: 0, vendors: [] } }
+    @vendors.each do |vendor|
+      vendor.inventory.each do |item, quantity|
+        inventory[item][:quantity] += quantity
+        inventory[item][:vendors] << vendor
+      end
+    end
+    inventory
   end
 end

@@ -83,11 +83,11 @@ RSpec.describe Market do
   end
 
   describe '#total inventory' do
-   xit 'can report the quantities of all items sold at the market' do
+   it 'can report the quantities of all items sold at the market' do
       @market.add_vendor(@vendor1)
       @market.add_vendor(@vendor2)
       @market.add_vendor(@vendor3)
-      
+
       expected = {
         @item1 => { quantity: 100, vendors: [@vendor1, @vendor3] },
         @item2 => { quantity: 7, vendors: [@vendor1] },
