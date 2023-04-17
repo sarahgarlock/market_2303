@@ -65,10 +65,20 @@ RSpec.describe Market do
       @market.add_vendor(@vendor1)
       @market.add_vendor(@vendor2)
       @market.add_vendor(@vendor3)
-      
+
       expect(@vendor1.potential_revenue).to eq(29.75)
       expect(@vendor2.potential_revenue).to eq(345.00)
       expect(@vendor3.potential_revenue).to eq(48.75)
+    end
+  end
+
+  describe '#sorted item list' do
+    it 'can add names of items the Vendors have in stock into an array' do
+      @market.add_vendor(@vendor1)
+      @market.add_vendor(@vendor2)
+      @market.add_vendor(@vendor3)
+
+      expect(@market.sorted_item_list).to eq(["Banana Nice Cream", 'Peach', "Peach-Raspberry Nice Cream", 'Tomato'])
     end
   end
 end

@@ -23,4 +23,13 @@ class Market
     end
   end
 
+  def sorted_item_list
+    items = []
+    vendors.each do |vendor|
+      vendor.inventory.each_key do |item|
+        items << item.name
+      end
+    end
+    items.uniq.sort
+  end
 end
