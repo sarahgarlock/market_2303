@@ -1,6 +1,8 @@
 require './lib/item'
 require './lib/vendor'
 require './lib/market'
+require 'date'
+
 
 RSpec.describe Market do
   before(:each) do
@@ -109,6 +111,18 @@ RSpec.describe Market do
 
       expect(@market.overstocked_items).to be_an(Array)
       expect(@market.overstocked_items).to eq([@item1])
+    end
+  end
+
+  describe '#date' do
+    it 'returns the date in dd/mm/yyyy format' do
+      past_date = Date.new(2022, 1, 1) 
+      allow(Date).to receive(:today).and_return(past_date)
+      
+      expect(@market.date).to eq('01/01/2022')
+                # expected: "01/01/2022"
+                # got: "2022-01-01"
+      # expect(@market.date.today).to eq("17/04/2023")
     end
   end
 end
