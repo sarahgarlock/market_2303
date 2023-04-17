@@ -22,4 +22,5 @@ class Market
       vendor.inventory.has_key?(item)
     end
   end
+
 end
