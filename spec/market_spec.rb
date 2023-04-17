@@ -32,53 +32,45 @@ RSpec.describe Market do
       expect(@market.vendors).to eq ([])
     end
 
-    it 'adds vendors' do
-      @market.add_vendor(@vendor1)
-      @market.add_vendor(@vendor2)
-      @market.add_vendor(@vendor3)
-
-      expect(@market.vendors).to eq([@vendor1, @vendor2, @vendor3])
-    end
-
-    it 'returns vendors names' do
-      @market.add_vendor(@vendor1)
-      @market.add_vendor(@vendor2)
-      @market.add_vendor(@vendor3)
-
-      expect(@market.vendor_names).to eq(["Rocky Mountain Fresh", "Ba-Nom-a-Nom", "Palisade Peach Shack"])
-    end
+  before(:each) do
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
   end
+    
+      it 'adds vendors' do
+        expect(@market.vendors).to eq([@vendor1, @vendor2, @vendor3])
+      end
 
-  describe '#sell' do
-    it 'it returns a list of vendors that have that item in stock' do
-      @market.add_vendor(@vendor1)
-      @market.add_vendor(@vendor2)
-      @market.add_vendor(@vendor3)
-
-      expect(@market.vendors_that_sell(@item1)).to eq([@vendor1, @vendor3])
-      expect(@market.vendors_that_sell(@item4)).to eq([@vendor2])
+      it 'returns vendors names' do
+        expect(@market.vendor_names).to eq(["Rocky Mountain Fresh", "Ba-Nom-a-Nom", "Palisade Peach Shack"])
+      end
     end
-  end
 
-  describe '#potential value' do
-    it 'can add the sum of all items prices * quantity' do
-      @market.add_vendor(@vendor1)
-      @market.add_vendor(@vendor2)
-      @market.add_vendor(@vendor3)
-
-      expect(@vendor1.potential_revenue).to eq(29.75)
-      expect(@vendor2.potential_revenue).to eq(345.00)
-      expect(@vendor3.potential_revenue).to eq(48.75)
+    describe '#sell' do
+      it 'it returns a list of vendors that have that item in stock' do
+        expect(@market.vendors_that_sell(@item1)).to eq([@vendor1, @vendor3])
+        expect(@market.vendors_that_sell(@item4)).to eq([@vendor2])
+      end
     end
-  end
 
-  describe '#sorted item list' do
-    it 'can add names of items the Vendors have in stock into an array' do
-      @market.add_vendor(@vendor1)
-      @market.add_vendor(@vendor2)
-      @market.add_vendor(@vendor3)
-
-      expect(@market.sorted_item_list).to eq(["Banana Nice Cream", 'Peach', "Peach-Raspberry Nice Cream", 'Tomato'])
+    describe '#potential value' do
+      it 'can add the sum of all items prices * quantity' do
+        expect(@vendor1.potential_revenue).to eq(29.75)
+        expect(@vendor2.potential_revenue).to eq(345.00)
+        expect(@vendor3.potential_revenue).to eq(48.75)
+      end
     end
-  end
+
+    describe '#sorted item list' do
+      it 'can add names of items the Vendors have in stock into an array' do
+        expect(@market.sorted_item_list).to eq(["Banana Nice Cream", 'Peach', "Peach-Raspberry Nice Cream", 'Tomato'])
+      end
+    end
+
+    describe '#total inventory' do
+      it 'can report the quantities of all items sold at the market' do
+
+      end
+    end
 end
