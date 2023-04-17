@@ -32,4 +32,10 @@ class Market
     end
     items.uniq.sort
   end
+
+  def total_inventory
+    inventory = {}
+    
+
+  end
 end
