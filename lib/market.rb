@@ -55,4 +55,8 @@ class Market
     end
     overstocked_items.uniq
   end
+
+  def date
+    Date.to_s
+  end
 end
